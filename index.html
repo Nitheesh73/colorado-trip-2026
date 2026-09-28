@@ -1,0 +1,1565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Colorado Roadtrip</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Day-by-day Colorado road trip itinerary, route map, and packing list — Oct 1–5, 2026.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+<style>
+:root{
+  --bg:#f4f1ea;
+  --paper:#ffffff;
+  --ink:#1c2a2e;
+  --ink-soft:#5b6a6c;
+  --rule:#ddd5c3;
+  --accent:#c4592f;
+  --accent-soft:#eed3b0;
+  --pine:#2f4d43;
+  --sky:#3f6b7a;
+  --gold:#9c6d1e;
+  --shadow: 0 1px 2px rgba(28,42,46,.04), 0 6px 16px rgba(28,42,46,.06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14191a;
+    --paper:#1e2626;
+    --ink:#ede8de;
+    --ink-soft:#9aa6a2;
+    --rule:#333d3a;
+    --accent:#e2864f;
+    --accent-soft:#3c2f22;
+    --pine:#87b8a5;
+    --sky:#8fb9c4;
+    --gold:#d6ab5c;
+    --shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 20px rgba(0,0,0,.28);
+    color-scheme: dark;
+  }
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  padding-inline:16px;
+  padding-block:0 28px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:720px;margin:0 auto;}
+h1,h2{text-wrap:balance;margin:0;}
+::selection{background:var(--accent-soft);}
+
+.masthead{
+  text-align:center;
+  padding-block:calc(24px + env(safe-area-inset-top,0px)) 22px;
+}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:10px;
+  font-weight:500;
+}
+h1{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:clamp(34px,8vw,54px);
+  font-weight:600;
+  letter-spacing:-0.015em;
+  line-height:1.05;
+}
+.subtitle{
+  margin-top:10px;
+  font-size:13.5px;
+  color:var(--ink-soft);
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:.02em;
+  line-height:1.6;
+}
+
+/* segmented tab control */
+.tabs{
+  position:sticky;
+  top:0;
+  z-index:5;
+  padding-top:env(safe-area-inset-top,0px);
+  background:var(--bg);
+}
+.tabs-inner{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:4px;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:4px;
+  margin-block:6px 22px;
+  box-shadow:var(--shadow);
+}
+@media (max-width:480px){
+  .tabs-inner{grid-template-columns:repeat(3,1fr);}
+}
+.tab-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  background:transparent;
+  color:var(--ink-soft);
+  border:none;
+  border-radius:9px;
+  padding:10px 6px;
+  cursor:pointer;
+  font-weight:500;
+  transition:background .15s ease, color .15s ease;
+}
+.tab-btn.active{
+  background:var(--ink);
+  color:var(--bg);
+}
+.tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+@media (prefers-reduced-motion: reduce){.tab-btn{transition:none;}}
+
+.panel{display:none;}
+.panel.active{display:block;animation:fade .2s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion: reduce){.panel.active{animation:none;}}
+
+/* itinerary */
+.day{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  margin-bottom:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.day.is-today{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent), var(--shadow);}
+.today-badge{
+  display:inline-flex;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.08em;
+  color:#fff;
+  background:var(--accent);
+  padding:2px 8px;
+  border-radius:20px;
+  margin-left:8px;
+  vertical-align:middle;
+}
+.day-badges{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:8px;
+  margin-top:10px;
+}
+.day-sun{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--gold);
+  background:color-mix(in srgb, var(--gold) 16%, transparent);
+  padding:4px 10px;
+  border-radius:8px;
+  white-space:normal;
+  line-height:1.4;
+  max-width:100%;
+}
+.day-sun::before{content:"◐"; font-size:10px;flex:none;}
+.day-head{
+  padding:18px 20px 16px;
+  border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,var(--accent-soft) 0%, transparent 100%);
+}
+.day-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+.day-num{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:.12em;
+  color:var(--accent);
+  white-space:nowrap;
+}
+.day-date{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.day-temp{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--sky);
+  background:color-mix(in srgb, var(--sky) 14%, transparent);
+  padding:4px 10px;
+  border-radius:8px;
+  white-space:normal;
+  line-height:1.4;
+  max-width:100%;
+}
+.day-temp::before{content:"☀︎"; font-size:10px;flex:none;}
+.day-title{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:clamp(19px,4.2vw,24px);
+  font-weight:600;
+  line-height:1.28;
+}
+.sights{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  padding:14px 20px 2px;
+}
+.sight{
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--pine);
+  background:color-mix(in srgb, var(--pine) 13%, var(--paper));
+  border:1px solid color-mix(in srgb, var(--pine) 30%, transparent);
+  padding:4px 10px 4px 8px;
+  border-radius:20px;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+.sight svg{width:9px;height:9px;flex:none;}
+.timeline{padding:14px 20px 20px;display:flex;flex-direction:column;}
+.stop{
+  display:grid;
+  grid-template-columns:72px 20px 1fr;
+  column-gap:10px;
+  position:relative;
+}
+.stop::before{
+  content:"";
+  position:absolute;
+  left:82px; /* 72 + 10 gap, matches dot-col center */
+  top:2px;
+  bottom:-2px;
+  width:2px;
+  background:var(--rule);
+}
+.stop:last-child::before{display:none;}
+.stop:last-child .event{padding-bottom:0;}
+.time{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  color:var(--ink-soft);
+  padding-top:2px;
+  text-align:right;
+  white-space:nowrap;
+  line-height:1.5;
+}
+.dot-col{display:flex;justify-content:center;padding-top:2px;}
+.dot{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--pine);
+  z-index:1;
+  margin-top:1px;
+}
+.stop.hl .dot{background:var(--accent);border-color:var(--accent);}
+.event{padding:0 0 18px;}
+.event-label{font-size:14.5px;line-height:1.5;}
+.stop.hl .event-label{font-weight:600;}
+.event-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  margin-top:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  padding:3px 8px;
+  border-radius:5px;
+  font-weight:500;
+}
+.event-tag.tag-info{color:var(--sky);background:color-mix(in srgb, var(--sky) 15%, transparent);}
+.event-tag.tag-warn{color:var(--accent);background:color-mix(in srgb, var(--accent) 15%, transparent);}
+.event-tag.tag-gear{color:var(--gold);background:color-mix(in srgb, var(--gold) 18%, transparent);}
+
+.trip-footer{
+  text-align:center;
+  margin-top:8px;
+  padding:16px 12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:var(--ink-soft);
+  letter-spacing:.05em;
+}
+
+/* food */
+.food-intro{padding:2px 2px 16px;}
+.food-intro h2{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;}
+.food-intro .note{font-size:13px;color:var(--ink-soft);margin-top:6px;line-height:1.6;}
+.food-stop{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  margin-bottom:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.food-stop-head{
+  padding:14px 18px 12px;
+  border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,var(--accent-soft) 0%, transparent 100%);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.food-stop-head h3{
+  font-family:'Fraunces',Georgia,serif;
+  font-size:16.5px;
+  font-weight:600;
+  margin:0;
+}
+.food-stop-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.food-list{list-style:none;margin:0;padding:8px 0;}
+.food-list li{padding:10px 18px;border-bottom:1px solid var(--rule);}
+.food-list li:last-child{border-bottom:none;}
+.food-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.food-name{font-size:14px;font-weight:600;}
+.food-rating{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--gold);
+  white-space:nowrap;
+}
+.food-addr{font-size:12px;color:var(--ink-soft);margin-top:3px;}
+.food-note{
+  font-size:12px;
+  color:var(--pine);
+  margin-top:5px;
+  display:flex;
+  gap:5px;
+}
+.food-note::before{content:"✓";flex:none;}
+.food-empty{
+  padding:14px 18px;
+  font-size:13px;
+  color:var(--ink-soft);
+  font-style:italic;
+}
+
+/* budget */
+.budget-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+@media (max-width:480px){ .budget-summary{grid-template-columns:1fr;} }
+.budget-stat{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  padding:14px 16px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.budget-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+.budget-stat-value{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:600;margin-top:6px;color:var(--accent);}
+.budget-list{list-style:none;margin:0;padding:8px 0;}
+.budget-list li{padding:10px 18px;border-bottom:1px solid var(--rule);}
+.budget-list li:last-child{border-bottom:none;}
+.budget-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.budget-name{font-size:14px;font-weight:600;}
+.budget-amt{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--gold);
+  white-space:nowrap;
+  text-align:right;
+}
+.budget-note{font-size:12px;color:var(--ink-soft);margin-top:5px;}
+
+/* map */
+.map-card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px;margin-bottom:18px;box-shadow:var(--shadow);}
+.scene3d-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3.1;
+  border-radius:10px;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 50% 20%, #1c2b3a 0%, #0a1018 65%, #050709 100%);
+}
+.scene3d-wrap canvas{display:block;width:100%;height:100%;}
+.scene3d-badges{position:absolute;inset:0;pointer-events:none;}
+.scene3d-badge{
+  position:absolute;
+  width:20px;height:20px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;font-weight:600;
+  color:#0a1018;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 8px 1px currentColor, 0 1px 3px rgba(0,0,0,.5);
+  transition:opacity .15s ease;
+  z-index:2;
+}
+.scene3d-name{
+  position:absolute;
+  transform:translate(-50%,2px);
+  white-space:nowrap;
+  font-family:'Inter Tight',sans-serif;
+  font-size:10.5px;
+  font-weight:600;
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.85), 0 0 6px rgba(0,0,0,.6);
+  transition:opacity .15s ease;
+  z-index:1;
+  pointer-events:none;
+}
+.scene3d-caption{
+  position:absolute;
+  left:12px; bottom:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:rgba(255,255,255,.55);
+  letter-spacing:.03em;
+  pointer-events:none;
+}
+.scene3d-fallback{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12.5px;
+  color:rgba(255,255,255,.6);
+}
+svg.route-map{display:block;width:100%;height:auto;overflow:visible;}
+.route{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 9;}
+.leader{stroke:var(--ink-soft);stroke-width:1;opacity:.5;}
+.stop-dot{stroke-width:2.5;stroke:var(--paper);}
+.stop-label{font-family:'Inter Tight',sans-serif;font-weight:600;font-size:13px;fill:var(--ink);}
+.stop-num{font-family:'JetBrains Mono',monospace;font-size:9.5px;fill:var(--paper);text-anchor:middle;dominant-baseline:central;font-weight:500;}
+.compass{fill:var(--ink-soft);}
+.disclaimer{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-soft);text-align:center;margin-top:10px;}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:center;padding:16px 4px 4px;border-top:1px solid var(--rule);margin-top:12px;}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft);}
+.swatch{width:20px;height:3px;border-radius:2px;flex:none;}
+
+.stoplist{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+.stop-row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid var(--rule);font-size:13.5px;}
+.stop-row:last-child{border-bottom:none;}
+.stop-badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:#fff;}
+.stop-day-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);white-space:nowrap;}
+
+/* packing */
+.pack-header{padding:2px 2px 16px;}
+.pack-header h2{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;}
+.pack-header .note{font-size:13px;color:var(--ink-soft);margin-top:6px;line-height:1.55;}
+.pack-progress{
+  margin-top:14px;
+  height:6px;
+  border-radius:4px;
+  background:var(--rule);
+  overflow:hidden;
+}
+.pack-progress-bar{height:100%;background:var(--pine);border-radius:4px;width:0%;transition:width .25s ease;}
+.pack-count{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  color:var(--ink-soft);
+  margin-top:6px;
+  display:block;
+}
+.pack-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.pack-list li{border-bottom:1px solid var(--rule);}
+.pack-list li:last-child{border-bottom:none;}
+.pack-list label{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:13px 18px;
+  cursor:pointer;
+  font-size:14px;
+}
+.pack-list input[type="checkbox"]{
+  appearance:none;
+  width:19px;height:19px;
+  border-radius:6px;
+  border:1.5px solid var(--rule);
+  background:var(--paper);
+  flex:none;
+  display:grid;
+  place-content:center;
+  cursor:pointer;
+}
+.pack-list input[type="checkbox"]::before{
+  content:"";
+  width:10px;height:10px;
+  clip-path:polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 45% 62%);
+  background:var(--paper);
+  transform:scale(0);
+  transition:transform .1s ease;
+}
+.pack-list input[type="checkbox"]:checked{background:var(--pine);border-color:var(--pine);}
+.pack-list input[type="checkbox"]:checked::before{transform:scale(1);}
+.pack-list input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.pack-item-text{transition:color .15s ease, opacity .15s ease;}
+.pack-list li.checked .pack-item-text{color:var(--ink-soft);opacity:.6;text-decoration:line-through;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="eyebrow">Road Trip · Oct 1&ndash;5, 2026</div>
+    <h1>Colorado</h1>
+    <div class="subtitle">Colorado Springs → Alamosa → Leadville<br>→ Estes Park → Denver</div>
+  </div>
+
+  <nav class="tabs" role="tablist" aria-label="Trip sections">
+    <div class="tabs-inner">
+      <button class="tab-btn active" data-panel="itinerary" role="tab" aria-selected="true" id="tab-itinerary">Itinerary</button>
+      <button class="tab-btn" data-panel="map" role="tab" aria-selected="false" id="tab-map">Route Map</button>
+      <button class="tab-btn" data-panel="pack" role="tab" aria-selected="false" id="tab-pack">Packing</button>
+      <button class="tab-btn" data-panel="food" role="tab" aria-selected="false" id="tab-food">Food</button>
+      <button class="tab-btn" data-panel="budget" role="tab" aria-selected="false" id="tab-budget">Budget</button>
+    </div>
+  </nav>
+
+  <!-- ITINERARY PANEL -->
+  <section class="panel active" id="panel-itinerary" role="tabpanel" aria-labelledby="tab-itinerary">
+
+    <div class="day" data-date="2026-10-02">
+      <div class="day-head">
+        <div class="day-meta"><span class="day-num">DAY 2</span><span class="day-date">FRI OCT 2</span></div>
+        <div class="day-title">Pikes Peak → Royal Gorge → Alamosa</div>
+        <div class="day-badges">
+          <span class="day-temp">Valley 66°F/19°C · 37°F/3°C — Summit ~30°F/-1°C, windy</span>
+          <span class="day-sun">Sunrise 7:02 AM · Sunset 6:42 PM · Golden hour ~5:50 PM</span>
+        </div>
+      </div>
+      <div class="sights">
+        <span class="sight">★ Pikes Peak Summit</span>
+        <span class="sight">★ America the Beautiful marker</span>
+        <span class="sight">★ Royal Gorge Bridge</span>
+        <span class="sight">★ Royal Gorge Canyon overlook</span>
+      </div>
+      <div class="timeline">
+        <div class="stop"><div class="time">8:00 AM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Leave Colorado Springs motel</div></div></div>
+        <div class="stop hl"><div class="time">9:00–10:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive up Pikes Peak Highway to the summit</div><span class="event-tag tag-info">14,115 ft</span></div></div>
+        <div class="stop hl"><div class="time">10:00–11:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Summit — views, photos</div><span class="event-tag tag-gear">Bring puffer + gloves</span></div></div>
+        <div class="stop"><div class="time">11:00–12:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive down, depart for Royal Gorge</div></div></div>
+        <div class="stop hl"><div class="time">2:00–5:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Royal Gorge Bridge &amp; Park</div></div></div>
+        <div class="stop"><div class="time">5:00–10:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive to Alamosa</div></div></div>
+        <div class="stop"><div class="time">~10:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Check in — Alamosa motel</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-10-03">
+      <div class="day-head">
+        <div class="day-meta"><span class="day-num">DAY 3</span><span class="day-date">SAT OCT 3</span></div>
+        <div class="day-title">Great Sand Dunes → Mt. Princeton Hot Springs → Leadville</div>
+        <div class="day-badges">
+          <span class="day-temp">Dunes 68°F/20°C · 40°F/4°C — Leadville ~25°F/-4°C at night</span>
+          <span class="day-sun">Sunrise 7:03 AM · Sunset 6:40 PM · Golden hour ~5:48 PM</span>
+        </div>
+      </div>
+      <div class="sights">
+        <span class="sight">★ Great Sand Dunes NP overlook</span>
+        <span class="sight">★ Medano Creek</span>
+        <span class="sight">★ Mt. Princeton Hot Springs</span>
+        <span class="sight">★ Collegiate Peaks scenic byway</span>
+      </div>
+      <div class="timeline">
+        <div class="stop"><div class="time">8:00–9:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Wake, get ready, breakfast</div></div></div>
+        <div class="stop hl"><div class="time">10:00–11:30</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Great Sand Dunes — explore, photos</div><span class="event-tag tag-warn">Car only, no hike</span></div></div>
+        <div class="stop"><div class="time">11:30–5:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive toward Mt. Princeton, lunch stop en route</div></div></div>
+        <div class="stop hl"><div class="time">5:00–7:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Mount Princeton Hot Springs</div><span class="event-tag tag-gear">Swimsuit + flip-flops</span></div></div>
+        <div class="stop"><div class="time">~8:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Arrive Leadville — shower, dinner, relax</div></div></div>
+        <div class="stop"><div class="time">11:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Sleep</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-10-04">
+      <div class="day-head">
+        <div class="day-meta"><span class="day-num">DAY 4</span><span class="day-date">SUN OCT 4</span></div>
+        <div class="day-title">Maroon Bells → Aspen → Independence Pass → Estes Park</div>
+        <div class="day-badges">
+          <span class="day-temp">Aspen 60°F/16°C · 32°F/0°C — Pass ~35°F/2°C, high wind</span>
+          <span class="day-sun">Sunrise 7:04 AM · Sunset 6:38 PM · Golden hour ~5:46 PM</span>
+        </div>
+      </div>
+      <div class="sights">
+        <span class="sight">★ Maroon Bells</span>
+        <span class="sight">★ Aspen Gondola / Silver Queen</span>
+        <span class="sight">★ Independence Pass</span>
+        <span class="sight">★ Twin Lakes Reservoir</span>
+        <span class="sight">★ Breckenridge Main St.</span>
+      </div>
+      <div class="timeline">
+        <div class="stop"><div class="time">6:00–7:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Wake, ready, breakfast</div></div></div>
+        <div class="stop"><div class="time">7:00–8:40</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive to Aspen Highlands, park for shuttle</div></div></div>
+        <div class="stop hl"><div class="time">9:30–12:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Shuttle to Maroon Bells — explore, photos</div><span class="event-tag tag-warn">Reserve shuttle ahead</span></div></div>
+        <div class="stop hl"><div class="time">12:30–2:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Aspen Gondola + sightseeing</div></div></div>
+        <div class="stop hl"><div class="time">~3:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Independence Pass viewpoint</div><span class="event-tag tag-info">12,095 ft — windy</span></div></div>
+        <div class="stop"><div class="time">~4:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Twin Lakes photo stop</div></div></div>
+        <div class="stop"><div class="time">~5:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Breckenridge — quick stretch stop</div></div></div>
+        <div class="stop hl"><div class="time">5:15–9:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Long drive to Estes Park</div><span class="event-tag tag-warn">~12 hrs on the road today</span></div></div>
+        <div class="stop"><div class="time">9:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Check in, dinner, sleep by 11</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-date="2026-10-05">
+      <div class="day-head">
+        <div class="day-meta"><span class="day-num">DAY 5</span><span class="day-date">MON OCT 5</span></div>
+        <div class="day-title">Estes Park → Rocky Mountain NP → Denver Airport</div>
+        <div class="day-badges">
+          <span class="day-temp">Estes 62°F/17°C · 34°F/1°C — RMNP ~45°F/7°C, colder at ridge</span>
+          <span class="day-sun">Sunrise 7:05 AM · Sunset 6:37 PM · Golden hour ~5:45 PM</span>
+        </div>
+      </div>
+      <div class="sights">
+        <span class="sight">★ Downtown Estes Park</span>
+        <span class="sight">★ Trail Ridge Road</span>
+        <span class="sight">★ Bear Lake overlook</span>
+        <span class="sight">★ Sprague Lake</span>
+      </div>
+      <div class="timeline">
+        <div class="stop"><div class="time">8:00–10:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Wake, ready, breakfast</div></div></div>
+        <div class="stop"><div class="time">10:00–11:30</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Explore downtown Estes Park / viewpoints</div></div></div>
+        <div class="stop hl"><div class="time">12:00–2:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Rocky Mountain National Park — scenic drives</div></div></div>
+        <div class="stop"><div class="time">2:30–4:00</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Lunch back in Estes Park</div></div></div>
+        <div class="stop"><div class="time">4:00–6:30</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Drive to Denver</div></div></div>
+        <div class="stop"><div class="time">By 7:00 PM</div><div class="dot-col"><div class="dot"></div></div><div class="event"><div class="event-label">Rental return, flight home</div><span class="event-tag tag-info">DEN Airport</span></div></div>
+      </div>
+    </div>
+
+    <div class="trip-footer">COLORADO SPRINGS · ROYAL GORGE · GREAT SAND DUNES · ASPEN · RMNP</div>
+  </section>
+
+  <!-- MAP PANEL -->
+  <section class="panel" id="panel-map" role="tabpanel" aria-labelledby="tab-map">
+    <div class="map-card">
+      <div class="scene3d-wrap" id="scene3d">
+        <div class="scene3d-badges" id="scene3d-badges"></div>
+        <div class="scene3d-caption">Real elevation profile · auto-rotating</div>
+      </div>
+      <div class="disclaimer">Terrain relief is exaggerated for clarity — not to exact scale. Snow shown above ~11,000 ft (Pikes Peak, Independence Pass, Rocky Mtn NP) — typical for early October in Colorado.</div>
+      <div class="legend">
+        <div class="legend-item"><span class="swatch" style="background:var(--accent)"></span>Day 1 · Pikes Peak &amp; Royal Gorge</div>
+        <div class="legend-item"><span class="swatch" style="background:var(--sky)"></span>Day 2 · Sand Dunes &amp; Hot Springs</div>
+        <div class="legend-item"><span class="swatch" style="background:var(--pine)"></span>Day 3 · Aspen &amp; the Passes</div>
+        <div class="legend-item"><span class="swatch" style="background:var(--gold)"></span>Day 4 · RMNP &amp; Denver</div>
+      </div>
+    </div>
+
+    <div class="stoplist">
+      <div class="stop-row"><span class="stop-badge" style="background:var(--accent)">1</span><span>Colorado Springs — start</span><span class="stop-day-tag">Fri Oct 2</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--accent)">2</span><span>Pikes Peak Summit</span><span class="stop-day-tag">Fri Oct 2</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--accent)">3</span><span>Royal Gorge Bridge &amp; Park</span><span class="stop-day-tag">Fri Oct 2</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--accent)">4</span><span>Alamosa — overnight</span><span class="stop-day-tag">Fri Oct 2</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--sky)">5</span><span>Great Sand Dunes NP</span><span class="stop-day-tag">Sat Oct 3</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--sky)">6</span><span>Mount Princeton Hot Springs</span><span class="stop-day-tag">Sat Oct 3</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--sky)">7</span><span>Leadville — overnight</span><span class="stop-day-tag">Sat Oct 3</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--pine)">8</span><span>Maroon Bells</span><span class="stop-day-tag">Sun Oct 4</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--pine)">9</span><span>Aspen Gondola</span><span class="stop-day-tag">Sun Oct 4</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--pine)">10</span><span>Independence Pass</span><span class="stop-day-tag">Sun Oct 4</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--pine)">11</span><span>Twin Lakes</span><span class="stop-day-tag">Sun Oct 4</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--pine)">12</span><span>Breckenridge</span><span class="stop-day-tag">Sun Oct 4</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--gold)">13</span><span>Estes Park — overnight</span><span class="stop-day-tag">Sun–Mon</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--gold)">14</span><span>Rocky Mountain National Park</span><span class="stop-day-tag">Mon Oct 5</span></div>
+      <div class="stop-row"><span class="stop-badge" style="background:var(--gold)">15</span><span>Denver Airport — flight home</span><span class="stop-day-tag">Mon Oct 5</span></div>
+    </div>
+  </section>
+
+  <!-- FOOD PANEL -->
+  <section class="panel" id="panel-food" role="tabpanel" aria-labelledby="tab-food">
+    <div class="food-intro">
+      <h2>Indian food along the route</h2>
+      <div class="note">Picked for Guntur-style tastes — places that can go properly spicy on request. Small mountain towns (Alamosa, Leadville) have no Indian kitchens, so plan a home-style meal or snacks those nights.</div>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Colorado Springs</h3><span class="food-stop-tag">Day 1–2</span></div>
+      <ul class="food-list">
+        <li>
+          <div class="food-row"><span class="food-name">Turmeric Indian Cuisine</span><span class="food-rating">★ 4.9 (818)</span></div>
+          <div class="food-addr">5535 Powers Center Point</div>
+          <div class="food-note">Ask for South Indian spice level — they'll turn it up</div>
+        </li>
+        <li>
+          <div class="food-row"><span class="food-name">Mausam Indian Flavors</span><span class="food-rating">★ 4.8 (1,826)</span></div>
+          <div class="food-addr">3167 W Colorado Ave</div>
+          <div class="food-note">Good dosa and idli selection</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Alamosa</h3><span class="food-stop-tag">Night 1</span></div>
+      <div class="food-empty">No Indian kitchens here — it's a small town. Best bet: pack a tiffin box from Colorado Springs, or try Sushi Thai Alamosa (4.7) if the group wants something with real heat.</div>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Leadville &amp; Frisco</h3><span class="food-stop-tag">Night 2</span></div>
+      <ul class="food-list">
+        <li>
+          <div class="food-row"><span class="food-name">India's Spice</span><span class="food-rating">★ 4.8 (583)</span></div>
+          <div class="food-addr">121 E Main St, Frisco — ~40 min from Leadville</div>
+          <div class="food-note">Closest real Indian kitchen to Leadville</div>
+        </li>
+        <li>
+          <div class="food-row"><span class="food-name">Himalayan Cuisine</span><span class="food-rating">★ 4.4 (1,016)</span></div>
+          <div class="food-addr">842 N Summit Blvd, Frisco</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Aspen</h3><span class="food-stop-tag">Day 4</span></div>
+      <ul class="food-list">
+        <li>
+          <div class="food-row"><span class="food-name">Mawa's Kitchen</span><span class="food-rating">★ 4.6 (533)</span></div>
+          <div class="food-addr">305 Aspen Airport Business Center F</div>
+          <div class="food-note">Indian-Nepali, solid quick lunch stop between Maroon Bells and the gondola</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Breckenridge</h3><span class="food-stop-tag">Day 4</span></div>
+      <div class="food-empty">No Indian spot right in town — Ember (4.4) is the best sit-down option if you stop, otherwise push on toward Frisco's India's Spice on the way through.</div>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Estes Park</h3><span class="food-stop-tag">Night 3–4</span></div>
+      <ul class="food-list">
+        <li>
+          <div class="food-row"><span class="food-name">Himalayan Curry &amp; Kebob</span><span class="food-rating">★ 4.8 (12,524)</span></div>
+          <div class="food-addr">101 W Elkhorn Ave</div>
+          <div class="food-note">Extremely popular — book ahead for a group of 8</div>
+        </li>
+        <li>
+          <div class="food-row"><span class="food-name">Indian Bites Estes Park</span><span class="food-rating">★ 4.8 (924)</span></div>
+          <div class="food-addr">181 W Riverside Dr</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Denver</h3><span class="food-stop-tag">Day 5 · before your flight</span></div>
+      <ul class="food-list">
+        <li>
+          <div class="food-row"><span class="food-name">Spice Room</span><span class="food-rating">★ 4.9 (5,082)</span></div>
+          <div class="food-addr">3100 E Colfax Ave — several locations around Denver</div>
+          <div class="food-note">Best last-meal option before rental return</div>
+        </li>
+        <li>
+          <div class="food-row"><span class="food-name">Unique Indian Cuisine</span><span class="food-rating">★ 4.9 (718)</span></div>
+          <div class="food-addr">2246 Colorado Blvd</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BUDGET PANEL -->
+  <section class="panel" id="panel-budget" role="tabpanel" aria-labelledby="tab-budget">
+    <div class="food-intro">
+      <h2>Budget estimate — 8 travelers, 5 days / 4 nights</h2>
+      <div class="note">Rough planning numbers for Oct 1–5, 2026, flying DFW → Denver, renting locally, splitting 4 nights of lodging across 2 rooms. Actual prices move with booking date — treat this as a planning range, not a quote.</div>
+    </div>
+
+    <div class="budget-summary">
+      <div class="budget-stat">
+        <div class="budget-stat-label">Total for the group</div>
+        <div class="budget-stat-value">$4,950 – $7,150</div>
+      </div>
+      <div class="budget-stat">
+        <div class="budget-stat-label">Per person</div>
+        <div class="budget-stat-value">$620 – $895</div>
+      </div>
+      <div class="budget-stat">
+        <div class="budget-stat-label">Per person, per day</div>
+        <div class="budget-stat-value">~$125 – $180</div>
+      </div>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Flights</h3><span class="food-stop-tag">8 travelers</span></div>
+      <ul class="budget-list">
+        <li><div class="budget-row"><span class="budget-name">DFW ↔ Denver (DEN), round-trip</span><span class="budget-amt">$220–320 / person</span></div>
+          <div class="budget-note">$1,760–2,560 total — book 6–8 weeks out for the lower end; October is shoulder season so fares are usually reasonable</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Rental vehicles</h3><span class="food-stop-tag">5 days</span></div>
+      <ul class="budget-list">
+        <li><div class="budget-row"><span class="budget-name">2 × full-size SUV (4 seats + luggage each)</span><span class="budget-amt">$95–140 / day each</span></div>
+          <div class="budget-note">$950–1,400 total for both vehicles across 5 days, plus ~$60–100 combined for insurance/waiver if not covered by a card already</div>
+        </li>
+        <li><div class="budget-row"><span class="budget-name">Gas (~700 mi total route, 2 vehicles, ~20 mpg)</span><span class="budget-amt">$330–420 total</span></div>
+          <div class="budget-note">Mountain driving (Pikes Peak, Independence Pass) runs a bit thirstier than flat highway</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Lodging</h3><span class="food-stop-tag">4 nights</span></div>
+      <ul class="budget-list">
+        <li><div class="budget-row"><span class="budget-name">2 rooms/night (Colorado Springs area, Leadville/Frisco, Estes Park ×2)</span><span class="budget-amt">$160–260 / room / night</span></div>
+          <div class="budget-note">$1,280–2,080 total — Estes Park runs pricier in peak fall-color weekends; book early for Rocky Mountain NP gateway towns</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Park &amp; attraction fees</h3><span class="food-stop-tag">per vehicle unless noted</span></div>
+      <ul class="budget-list">
+        <li><div class="budget-row"><span class="budget-name">Pikes Peak Highway</span><span class="budget-amt">$15 / adult</span></div></li>
+        <li><div class="budget-row"><span class="budget-name">Royal Gorge Bridge &amp; Park</span><span class="budget-amt">~$30 / adult</span></div></li>
+        <li><div class="budget-row"><span class="budget-name">Great Sand Dunes NP entrance</span><span class="budget-amt">$25 / vehicle (7 days)</span></div></li>
+        <li><div class="budget-row"><span class="budget-name">Rocky Mountain NP entrance + timed-entry permit</span><span class="budget-amt">$30 / vehicle + $2/vehicle permit</span></div></li>
+        <li><div class="budget-row"><span class="budget-name">Garden of the Gods, Maroon Bells overlook</span><span class="budget-amt">Free (Maroon Bells may need a shuttle ~$16/person in season)</span></div></li>
+      </ul>
+      <div class="budget-note" style="padding:0 20px 16px">≈ $370–460 total across both vehicles for 8 people</div>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Food</h3><span class="food-stop-tag">5 days</span></div>
+      <ul class="budget-list">
+        <li><div class="budget-row"><span class="budget-name">8 people × ~$35–45/day (breakfast, lunch, dinner)</span><span class="budget-amt">$1,400–1,800 total</span></div>
+          <div class="budget-note">Sit-down Indian dinners in Colorado Springs/Estes Park run a bit above small-town diner prices — see the Food tab for exact spots</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="food-stop">
+      <div class="food-stop-head"><h3>Contingency</h3><span class="food-stop-tag">~10%</span></div>
+      <div class="food-empty">$450–650 buffer for parking, tolls, snacks, altitude-sickness meds, or a missed reservation. Mountain towns run cash-tight on card fees too — keep some cash for tip jars and small vendors.</div>
+    </div>
+  </section>
+
+  <!-- PACKING PANEL -->
+  <section class="panel" id="panel-pack" role="tabpanel" aria-labelledby="tab-pack">
+    <div class="pack-header">
+      <h2>What to pack</h2>
+      <div class="note">Highs 60–70°F (16–21°C), lows 30–40°F (0–4°C) — colder and windier at every summit stop. All-car itinerary, sizes S/M. Tap items off as you pack.</div>
+      <div class="pack-progress"><div class="pack-progress-bar" id="packBar"></div></div>
+      <span class="pack-count" id="packCount">0 of 10 packed</span>
+    </div>
+    <ul class="pack-list" id="packList">
+      <li><label><input type="checkbox" id="p1"><span class="pack-item-text">Packable puffer jacket</span></label></li>
+      <li><label><input type="checkbox" id="p2"><span class="pack-item-text">Fleece or zip-up mid-layer</span></label></li>
+      <li><label><input type="checkbox" id="p3"><span class="pack-item-text">2 long-sleeve base layers</span></label></li>
+      <li><label><input type="checkbox" id="p4"><span class="pack-item-text">Windproof / rain shell</span></label></li>
+      <li><label><input type="checkbox" id="p5"><span class="pack-item-text">Jeans or comfortable pants x2</span></label></li>
+      <li><label><input type="checkbox" id="p6"><span class="pack-item-text">Swimsuit + flip-flops</span></label></li>
+      <li><label><input type="checkbox" id="p7"><span class="pack-item-text">Comfortable closed-toe sneakers</span></label></li>
+      <li><label><input type="checkbox" id="p8"><span class="pack-item-text">Wool socks x3–4</span></label></li>
+      <li><label><input type="checkbox" id="p9"><span class="pack-item-text">Beanie, gloves, sunglasses</span></label></li>
+      <li><label><input type="checkbox" id="p10"><span class="pack-item-text">Neck gaiter or scarf</span></label></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){ activate(btn.getAttribute('data-panel')); });
+  });
+  function activate(target){
+    document.querySelectorAll('.tab-btn').forEach(function(b){
+      var isActive = b.getAttribute('data-panel') === target;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    var panel = document.getElementById('panel-'+target);
+    if(panel) panel.classList.add('active');
+    try{ localStorage.setItem('co-trip-tab', target); }catch(e){}
+    document.dispatchEvent(new CustomEvent('panelchange', {detail:target}));
+  }
+  try{
+    var saved = localStorage.getItem('co-trip-tab');
+    if(saved && document.getElementById('panel-'+saved)) activate(saved);
+  }catch(e){}
+})();
+
+(function(){
+  var list = document.getElementById('packList');
+  if(!list) return;
+  var boxes = list.querySelectorAll('input[type="checkbox"]');
+  var bar = document.getElementById('packBar');
+  var count = document.getElementById('packCount');
+  function load(){
+    boxes.forEach(function(box){
+      var li = box.closest('li');
+      try{
+        var saved = localStorage.getItem('pack-'+box.id);
+        if(saved === '1'){ box.checked = true; li.classList.add('checked'); }
+      }catch(e){}
+    });
+    update();
+  }
+  function update(){
+    var checked = 0;
+    boxes.forEach(function(box){ if(box.checked) checked++; });
+    var pct = Math.round((checked/boxes.length)*100);
+    bar.style.width = pct + '%';
+    count.textContent = checked + ' of ' + boxes.length + ' packed';
+  }
+  boxes.forEach(function(box){
+    box.addEventListener('change', function(){
+      var li = box.closest('li');
+      li.classList.toggle('checked', box.checked);
+      try{ localStorage.setItem('pack-'+box.id, box.checked ? '1' : '0'); }catch(e){}
+      update();
+    });
+  });
+  load();
+})();
+</script>
+
+<script>
+(function(){
+  try{
+    var today = new Date();
+    var y = today.getFullYear(), m = today.getMonth()+1, d = today.getDate();
+    var todayStr = y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    var days = document.querySelectorAll('.day[data-date]');
+    days.forEach(function(day){
+      if(day.getAttribute('data-date') === todayStr){
+        day.classList.add('is-today');
+        var num = day.querySelector('.day-num');
+        if(num && !num.querySelector('.today-badge')){
+          var badge = document.createElement('span');
+          badge.className = 'today-badge';
+          badge.textContent = 'TODAY';
+          num.appendChild(badge);
+        }
+      }
+    });
+  }catch(e){}
+})();
+</script>
+
+<script>
+(function(){
+  var container = document.getElementById('scene3d');
+  if(!container) return;
+
+  function showFallback(){
+    container.innerHTML = '<div class="scene3d-fallback">3D view isn\'t supported in this browser —<br>the full route list is just below.</div>';
+  }
+  if(typeof THREE === 'undefined'){ showFallback(); return; }
+
+  var STOPS = [
+    {n:'Colorado Springs', lat:38.8353, lon:-104.8216, elev:6035, day:0},
+    {n:'Pikes Peak',       lat:38.8402, lon:-105.0427, elev:14115,day:0},
+    {n:'Royal Gorge',      lat:38.4603, lon:-105.3098, elev:4500, day:0},
+    {n:'Alamosa',          lat:37.4694, lon:-105.8700, elev:7543, day:0},
+    {n:'Great Sand Dunes', lat:37.7658, lon:-105.6236, elev:8200, day:1},
+    {n:'Mt. Princeton',    lat:38.7323, lon:-106.1631, elev:7800, day:1},
+    {n:'Leadville',        lat:39.2487, lon:-106.2919, elev:10152,day:1},
+    {n:'Maroon Bells',     lat:39.0710, lon:-106.9890, elev:9580, day:2},
+    {n:'Aspen',            lat:39.1864, lon:-106.8182, elev:7908, day:2},
+    {n:'Independence Pass',lat:39.1086, lon:-106.5640, elev:12095,day:2},
+    {n:'Twin Lakes',       lat:39.0820, lon:-106.3823, elev:9200, day:2},
+    {n:'Breckenridge',     lat:39.4817, lon:-106.0384, elev:9600, day:2},
+    {n:'Estes Park',       lat:40.3772, lon:-105.5217, elev:7522, day:3},
+    {n:'Rocky Mtn NP',     lat:40.3428, lon:-105.6836, elev:11000,day:3},
+    {n:'Denver Airport',   lat:39.8563, lon:-104.6764, elev:5430, day:3}
+  ];
+  var DAY_COLORS = [0xc4592f, 0x3f6b7a, 0x2f8f6f, 0xc9962f];
+
+  var lonMin=-106.989, lonMax=-104.676, latMin=37.469, latMax=40.377;
+  function toXYZ(s){
+    var x = ((s.lon-lonMin)/(lonMax-lonMin))*22 - 11;
+    var z = -(((s.lat-latMin)/(latMax-latMin))*22 - 11);
+    var y = (s.elev-3000)/1400;
+    return new THREE.Vector3(x,y,z);
+  }
+  STOPS.forEach(function(s){ s.pos = toXYZ(s); s.rawY = s.pos.y; });
+  function findStop(name){
+    for(var i=0;i<STOPS.length;i++){ if(STOPS[i].n===name) return STOPS[i]; }
+    return null;
+  }
+  // terrain height field — defined before markers/tubes so everything can be
+  // seated exactly on the surface instead of floating at a raw elevation value.
+  // Uses the tallest nearby peak (not a sum) so clustered stops don't stack
+  // into one oversized bulge.
+  var FLOOR_Y = -1.2;
+  function heightAt(x, z){
+    var h = FLOOR_Y;
+    for(var i=0;i<STOPS.length;i++){
+      var s = STOPS[i];
+      var dx = x - s.pos.x, dz = z - s.pos.z;
+      var d2 = dx*dx + dz*dz;
+      var amp = Math.max(0, s.rawY - FLOOR_Y) * 0.6;
+      var sigma = 1.05;
+      var bump = amp * Math.exp(-d2 / (2*sigma*sigma));
+      if(FLOOR_Y + bump > h) h = FLOOR_Y + bump;
+    }
+    h += (Math.sin(x*0.55+z*0.35)+Math.sin(x*0.28-z*0.5))*0.1;
+    return h;
+  }
+  STOPS.forEach(function(s){ s.pos.y = heightAt(s.pos.x, s.pos.z) + 0.14; });
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0a1018, 0.028);
+
+  var camera = new THREE.PerspectiveCamera(48, 1, 0.1, 200);
+  var renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+  container.insertBefore(renderer.domElement, container.firstChild);
+
+  function fit(){
+    var w = container.clientWidth, h = container.clientHeight;
+    if(!w || !h) return;
+    renderer.setSize(w,h,false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if(typeof ResizeObserver !== 'undefined'){
+    new ResizeObserver(fit).observe(container);
+  }
+
+  // starfield
+  (function(){
+    var starGeo = new THREE.BufferGeometry();
+    var count = 300, pos = new Float32Array(count*3);
+    for(var i=0;i<count;i++){
+      var r = 60 + Math.random()*40;
+      var theta = Math.random()*Math.PI*2, phi = Math.acos(Math.random()*2-1);
+      pos[i*3] = r*Math.sin(phi)*Math.cos(theta);
+      pos[i*3+1] = Math.abs(r*Math.cos(phi))*0.5 + 5;
+      pos[i*3+2] = r*Math.sin(phi)*Math.sin(theta);
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    var starMat = new THREE.PointsMaterial({color:0xffffff, size:0.15, transparent:true, opacity:0.55});
+    scene.add(new THREE.Points(starGeo, starMat));
+  })();
+
+  // drifting clouds — soft canvas-sprite puffs, high above the terrain,
+  // slowly crossing the scene for a sense of real weather/climate
+  var clouds = [];
+  (function(){
+    var c = document.createElement('canvas'); c.width = c.height = 128;
+    var g = c.getContext('2d');
+    [[64,70,46],[40,78,34],[90,78,34],[64,50,30]].forEach(function(p){
+      var grad = g.createRadialGradient(p[0],p[1],2,p[0],p[1],p[2]);
+      grad.addColorStop(0, 'rgba(255,255,255,0.85)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = grad;
+      g.beginPath(); g.arc(p[0],p[1],p[2],0,Math.PI*2); g.fill();
+    });
+    var cloudTex = new THREE.CanvasTexture(c);
+    for(var i=0;i<7;i++){
+      var mat = new THREE.SpriteMaterial({map:cloudTex, transparent:true, depthWrite:false, opacity:0.4+Math.random()*0.25});
+      var spr = new THREE.Sprite(mat);
+      var scale = 3 + Math.random()*3.5;
+      spr.scale.set(scale, scale*0.55, 1);
+      spr.position.set((Math.random()-0.5)*26, 6 + Math.random()*4, (Math.random()-0.5)*26);
+      scene.add(spr);
+      clouds.push({spr:spr, speed:0.06+Math.random()*0.08});
+    }
+  })();
+
+  // road-surface texture — asphalt gray with a repeating dashed centerline,
+  // wrapped along each tube so the route reads as an actual road, not a wire
+  var roadTex = (function(){
+    var c = document.createElement('canvas'); c.width = 64; c.height = 16;
+    var g = c.getContext('2d');
+    g.fillStyle = '#2b2b2c'; g.fillRect(0,0,64,16);
+    g.fillStyle = 'rgba(0,0,0,0.25)'; g.fillRect(0,0,64,3); g.fillRect(0,13,64,3);
+    g.fillStyle = '#e7c96a'; g.fillRect(14,7,20,2);
+    var tex = new THREE.CanvasTexture(c);
+    tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
+    return tex;
+  })();
+
+  // a FLAT ribbon strip along the curve — not a round tube. A tube read as
+  // a "tunnel" when seen end-on; a thin flat quad strip that follows the
+  // ground reads as an actual road surface from every angle.
+  function makeRoadRibbon(curve, width, segments){
+    var half = width/2;
+    var up = new THREE.Vector3(0,1,0);
+    var positions = [], uvs = [];
+    for(var i=0;i<=segments;i++){
+      var t = i/segments;
+      var p = curve.getPointAt(t);
+      var tangent = curve.getTangentAt(t).normalize();
+      var side = new THREE.Vector3().crossVectors(tangent, up);
+      if(side.lengthSq() < 1e-6) side.set(1,0,0); else side.normalize();
+      side.multiplyScalar(half);
+      var left = p.clone().sub(side), right = p.clone().add(side);
+      left.y += 0.015; right.y += 0.015;
+      positions.push(left.x,left.y,left.z, right.x,right.y,right.z);
+      uvs.push(0, i, 1, i);
+    }
+    var idx = [];
+    for(var s=0;s<segments;s++){
+      var a=s*2, b=s*2+1, c=(s+1)*2, d=(s+1)*2+1;
+      idx.push(a,c,b, b,c,d);
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setIndex(idx);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs,2));
+    geo.computeVertexNormals();
+    return geo;
+  }
+
+  // routes, grouped by day — a flat "road" ribbon first, then a slim
+  // color-coded lane stripe on top so each day is still easy to tell apart
+  var groups = [[0,1,2,3],[3,4,5,6],[6,7,8,9,10,11,12],[12,13,14]];
+  groups.forEach(function(idxs, gi){
+    var pts = idxs.map(function(i){ return STOPS[i].pos; });
+    var curve = new THREE.CatmullRomCurve3(pts);
+    var segs = Math.max(40, Math.round(curve.getLength()*12));
+
+    var roadGeo = makeRoadRibbon(curve, 0.34, segs);
+    var thisTex = roadTex.clone(); thisTex.needsUpdate = true;
+    var roadMat = new THREE.MeshStandardMaterial({map:thisTex, roughness:0.95, side:THREE.DoubleSide});
+    scene.add(new THREE.Mesh(roadGeo, roadMat));
+
+    var laneGeo = makeRoadRibbon(curve, 0.08, segs);
+    laneGeo.translate(0, 0.006, 0);
+    var laneMat = new THREE.MeshBasicMaterial({color:DAY_COLORS[gi], side:THREE.DoubleSide});
+    scene.add(new THREE.Mesh(laneGeo, laneMat));
+  });
+
+  // full curve for the traveling car
+  var fullCurve = new THREE.CatmullRomCurve3(STOPS.map(function(s){ return s.pos; }));
+
+  // stop markers (glow + core)
+  var markers = [];
+  STOPS.forEach(function(s){
+    var color = DAY_COLORS[s.day];
+    var core = new THREE.Mesh(
+      new THREE.SphereGeometry(0.16, 16, 16),
+      new THREE.MeshBasicMaterial({color:color})
+    );
+    core.position.copy(s.pos);
+    scene.add(core);
+
+    var glow = new THREE.Mesh(
+      new THREE.SphereGeometry(0.34, 16, 16),
+      new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:0.28})
+    );
+    glow.position.copy(s.pos);
+    scene.add(glow);
+
+    markers.push({core:core, glow:glow});
+  });
+
+  // a small car that actually drives the route — body + cabin + wheels +
+  // headlight glow, oriented to face the direction of travel each frame
+  var car = new THREE.Group();
+  // built with length along Z (Object3D.lookAt faces local -Z at the target)
+  var carBody = new THREE.Mesh(
+    new THREE.BoxGeometry(0.24, 0.13, 0.46),
+    new THREE.MeshStandardMaterial({color:0xd6483a, roughness:0.4, metalness:0.2})
+  );
+  carBody.position.y = 0.11;
+  car.add(carBody);
+  var carCabin = new THREE.Mesh(
+    new THREE.BoxGeometry(0.19, 0.12, 0.24),
+    new THREE.MeshStandardMaterial({color:0xdfe8ee, roughness:0.3, metalness:0.1, transparent:true, opacity:0.85})
+  );
+  carCabin.position.set(0, 0.21, 0.02);
+  car.add(carCabin);
+  [[-0.13,-0.15],[0.13,-0.15],[-0.13,0.15],[0.13,0.15]].forEach(function(w){
+    var wheel = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.05,0.05,0.04,10),
+      new THREE.MeshStandardMaterial({color:0x1a1a1a, roughness:0.8})
+    );
+    wheel.rotation.z = Math.PI/2;
+    wheel.position.set(w[0], 0.05, w[1]);
+    car.add(wheel);
+  });
+  var headlight = new THREE.Mesh(
+    new THREE.SphereGeometry(0.07,10,10),
+    new THREE.MeshBasicMaterial({color:0xfff2d6})
+  );
+  headlight.position.set(0, 0.11, -0.23);
+  car.add(headlight);
+  var travelGlow = new THREE.Mesh(new THREE.SphereGeometry(0.42,12,12), new THREE.MeshBasicMaterial({color:0xfff2d6, transparent:true, opacity:0.3}));
+  car.add(travelGlow);
+  scene.add(car);
+
+  // badge overlay positions
+  var badgeLayer = document.getElementById('scene3d-badges');
+  var badgeEls = STOPS.map(function(s, i){
+    var el = document.createElement('div');
+    el.className = 'scene3d-badge';
+    el.style.background = '#' + DAY_COLORS[s.day].toString(16).padStart(6,'0');
+    el.style.color = '#' + DAY_COLORS[s.day].toString(16).padStart(6,'0');
+    var inner = document.createElement('span');
+    inner.style.color = '#0a1018';
+    inner.textContent = (i+1);
+    el.appendChild(inner);
+    badgeLayer.appendChild(el);
+    return el;
+  });
+  // Only label the handful of iconic/major stops directly on the diorama —
+  // the full numbered list with every name already lives in the legend
+  // below the map, so cramming all 15 names onto the 3D scene just creates
+  // clutter and false-looking stacks when stops sit close together.
+  var MAJOR_STOPS = {'Colorado Springs':1,'Pikes Peak':1,'Royal Gorge':1,
+    'Great Sand Dunes':1,'Independence Pass':1,'Rocky Mtn NP':1,'Denver Airport':1};
+  var nameEls = STOPS.map(function(s){
+    if(!MAJOR_STOPS[s.n]) return null;
+    var el = document.createElement('div');
+    el.className = 'scene3d-name';
+    el.textContent = s.n;
+    badgeLayer.appendChild(el);
+    return el;
+  });
+
+  // --- terrain features (cinematic pass) --------------------------------
+  // (findStop / FLOOR_Y / heightAt are already defined above, before the
+  // markers were seated, so everything below reuses that same surface)
+
+  // warm "magic hour" lighting rig, closer to a title-sequence miniature diorama
+  scene.add(new THREE.HemisphereLight(0x8ea6bd, 0x1a140e, 0.55));
+  var sunLight = new THREE.DirectionalLight(0xffcf94, 2.1);
+  sunLight.position.set(-16, 20, 10);
+  scene.add(sunLight);
+  var fillLight = new THREE.DirectionalLight(0x4a6f92, 0.28);
+  fillLight.position.set(12, 5, -14);
+  scene.add(fillLight);
+  var rimLight = new THREE.DirectionalLight(0xffe6c2, 0.7);
+  rimLight.position.set(3, 4, 18);
+  scene.add(rimLight);
+
+  // soft sun-glow sprite for a hint of cinematic flare, parked behind the range
+  (function(){
+    var c = document.createElement('canvas'); c.width = c.height = 256;
+    var g = c.getContext('2d');
+    var grad = g.createRadialGradient(128,128,0,128,128,128);
+    grad.addColorStop(0, 'rgba(255,224,170,0.9)');
+    grad.addColorStop(0.35, 'rgba(255,190,120,0.35)');
+    grad.addColorStop(1, 'rgba(255,190,120,0)');
+    g.fillStyle = grad; g.fillRect(0,0,256,256);
+    var tex = new THREE.CanvasTexture(c);
+    var mat = new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending});
+    var flare = new THREE.Sprite(mat);
+    flare.scale.set(16,16,1);
+    flare.position.set(-15, 17, 8);
+    scene.add(flare);
+  })();
+
+  // --- continuous heightmap terrain, DEM-relief style --------------------
+  // one draped surface (like a real elevation model) instead of separate
+  // mountain props: real peaks rise where the actual stops are tallest.
+  var duneStop = findStop('Great Sand Dunes');
+  var terrainGeo = new THREE.PlaneGeometry(24, 24, 100, 100);
+  terrainGeo.rotateX(-Math.PI/2);
+  var tp = terrainGeo.attributes.position;
+  var colors = new Float32Array(tp.count*3);
+  var cLow = new THREE.Color(0x2f4a34), cMid = new THREE.Color(0x6b5a45),
+      cHigh = new THREE.Color(0x8f8a80), cSnow = new THREE.Color(0xf4f6f8),
+      cSand = new THREE.Color(0xcfa768), cShadow = new THREE.Color(0x1c2420);
+  for(var i=0;i<tp.count;i++){
+    var x = tp.getX(i), z = tp.getZ(i);
+    var h = heightAt(x, z);
+    tp.setY(i, h);
+    var t = Math.max(0, Math.min(1, (h - FLOOR_Y) / 5.4));
+    var col = new THREE.Color();
+    if(t < 0.22) col.copy(cLow).lerp(cMid, t/0.22);
+    else if(t < 0.6) col.copy(cMid).lerp(cHigh, (t-0.22)/0.38);
+    else col.copy(cHigh).lerp(cSnow, Math.min(1,(t-0.6)/0.4));
+    // pull toward shadow in low creases for depth
+    if(t < 0.06) col.lerp(cShadow, (0.06-t)/0.06*0.6);
+    // sand tint around Great Sand Dunes regardless of height band
+    if(duneStop){
+      var dsx = x - duneStop.pos.x, dsz = z - duneStop.pos.z;
+      var dsd = Math.sqrt(dsx*dsx+dsz*dsz);
+      if(dsd < 2.6) col.lerp(cSand, Math.max(0, 1 - dsd/2.6) * 0.85);
+    }
+    colors[i*3]=col.r; colors[i*3+1]=col.g; colors[i*3+2]=col.b;
+  }
+  terrainGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+  terrainGeo.computeVertexNormals();
+  var terrainMat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.95, metalness:0, flatShading:true});
+  var terrain = new THREE.Mesh(terrainGeo, terrainMat);
+  scene.add(terrain);
+
+  // dark "display base" slab under the relief, like a mounted museum model
+  var slab = new THREE.Mesh(
+    new THREE.BoxGeometry(28, 0.9, 28),
+    new THREE.MeshStandardMaterial({color:0x0c0f10, roughness:0.6})
+  );
+  slab.position.y = FLOOR_Y - 0.46;
+  scene.add(slab);
+
+  // real snow caps — tied to each stop's actual elevation, not the visual
+  // scale-down used for the terrain bumps, so the snow line sits where it
+  // really would in early October (roughly 11,000 ft and up in Colorado)
+  var snowTex = (function(){
+    var c = document.createElement('canvas'); c.width = c.height = 64;
+    var g = c.getContext('2d');
+    var grad = g.createRadialGradient(32,32,4,32,32,32);
+    grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+    grad.addColorStop(0.7, 'rgba(240,246,250,0.75)');
+    grad.addColorStop(1, 'rgba(240,246,250,0)');
+    g.fillStyle = grad; g.fillRect(0,0,64,64);
+    for(var i=0;i<80;i++){
+      g.fillStyle = 'rgba(255,255,255,'+(0.2+Math.random()*0.3)+')';
+      g.fillRect(Math.random()*64, Math.random()*64, 1.5, 1.5);
+    }
+    return new THREE.CanvasTexture(c);
+  })();
+  var SNOW_LINE_FT = 11000;
+  STOPS.forEach(function(s){
+    if(s.elev < SNOW_LINE_FT) return;
+    var reach = 0.5 + (s.elev - SNOW_LINE_FT) / 6000;
+    for(var i=0;i<5;i++){
+      var jx = (Math.random()-0.5)*0.65, jz = (Math.random()-0.5)*0.65;
+      // rounded snow-cap dome (half-sphere), partly sunk into the terrain,
+      // instead of a flat disc — reads as a snowdrift, not a hovering plate
+      var patch = new THREE.Mesh(
+        new THREE.SphereGeometry(reach * (0.32+Math.random()*0.3), 12, 8, 0, Math.PI*2, 0, Math.PI/2.4),
+        new THREE.MeshStandardMaterial({map:snowTex, color:0xffffff, roughness:0.65, transparent:true, opacity:0.96})
+      );
+      var px = s.pos.x + jx, pz = s.pos.z + jz;
+      patch.position.set(px, heightAt(px,pz) - 0.05, pz);
+      scene.add(patch);
+    }
+  });
+
+  // low-poly pine trees, planted at the terrain's actual surface height
+  function makeTree(x,z,scale){
+    var g = new THREE.Group();
+    var trunk = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.02*scale, 0.03*scale, 0.16*scale, 5),
+      new THREE.MeshStandardMaterial({color:0x4a3524, roughness:1})
+    );
+    trunk.position.y = 0.08*scale;
+    g.add(trunk);
+    var greens = [0x2f5c3a, 0x27502f, 0x336345];
+    for(var t=0;t<3;t++){
+      var cone = new THREE.Mesh(
+        new THREE.ConeGeometry((0.16-t*0.035)*scale, 0.22*scale, 7),
+        new THREE.MeshStandardMaterial({color:greens[t%greens.length], roughness:0.85, flatShading:true})
+      );
+      cone.position.y = (0.18 + t*0.14)*scale;
+      g.add(cone);
+    }
+    g.position.set(x, heightAt(x,z), z);
+    return g;
+  }
+  [['Breckenridge',14],['Aspen',12],['Estes Park',14],['Leadville',10],
+   ['Twin Lakes',10],['Mt. Princeton',9],['Maroon Bells',12],
+   ['Rocky Mtn NP',10],['Colorado Springs',8],['Denver Airport',6],
+   ['Independence Pass',8]].forEach(function(spec){
+    var s = findStop(spec[0]);
+    if(!s) return;
+    for(var i=0;i<spec[1];i++){
+      var ang = Math.random()*Math.PI*2, rad = 0.55 + Math.random()*2.1;
+      var tx = s.pos.x + Math.cos(ang)*rad, tz = s.pos.z + Math.sin(ang)*rad;
+      scene.add(makeTree(tx, tz, 0.6 + Math.random()*0.7));
+    }
+  });
+
+  // animated waterfall at Royal Gorge — a rock outcrop with several
+  // scrolling-texture water strands, a splash pool and rising mist,
+  // so it reads as water actually falling off the canyon wall
+  var waterfallUpdaters = [];
+  (function(){
+    var s = findStop('Royal Gorge');
+    if(!s) return;
+    var fx = s.pos.x + 0.6, fz = s.pos.z + 0.4;
+    var baseY = heightAt(fx, fz);
+    var topY = baseY + 1.7;
+
+    var cliff = new THREE.Mesh(
+      new THREE.BoxGeometry(1.15, topY-baseY+0.5, 0.55),
+      new THREE.MeshStandardMaterial({color:0x4b4438, roughness:1, flatShading:true})
+    );
+    cliff.position.set(fx-0.22, (topY+baseY)/2, fz-0.2);
+    scene.add(cliff);
+
+    function makeStrand(offsetX, width, heightScale, speed){
+      var c = document.createElement('canvas'); c.width=16; c.height=128;
+      var g = c.getContext('2d');
+      var grad = g.createLinearGradient(0,0,0,128);
+      grad.addColorStop(0,'rgba(255,255,255,0.98)');
+      grad.addColorStop(1,'rgba(195,230,255,0.9)');
+      g.fillStyle = grad; g.fillRect(0,0,16,128);
+      // high-contrast streak bands (not just noise) so the scroll reads as
+      // motion at a glance, not a static pale block
+      for(var band=0; band<8; band++){
+        var by = band*16 + Math.random()*4;
+        g.fillStyle = 'rgba(140,205,240,'+(0.35+Math.random()*0.3)+')';
+        g.fillRect(0, by, 16, 3+Math.random()*3);
+      }
+      for(var y=0;y<128;y+=3){
+        g.fillStyle = 'rgba(255,255,255,'+(0.35+Math.random()*0.5)+')';
+        g.fillRect(0,y,16,1+Math.random()*2);
+      }
+      var tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(1,6);
+      var mat = new THREE.MeshBasicMaterial({map:tex, color:0xeaf7ff, transparent:true, opacity:0.95, side:THREE.DoubleSide, depthWrite:false});
+      var h = (topY-baseY)*heightScale;
+      var mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, h), mat);
+      mesh.position.set(fx+offsetX, baseY + h/2, fz+0.08);
+      scene.add(mesh);
+      waterfallUpdaters.push(function(dt){ tex.offset.y -= dt*speed*1.6; });
+    }
+    makeStrand(0, 0.36, 1, 1.7);
+    makeStrand(0.24, 0.14, 0.82, 1.4);
+    makeStrand(-0.22, 0.12, 0.68, 1.9);
+
+    var poolMat = new THREE.MeshBasicMaterial({color:0xcdeeff, transparent:true, opacity:0.55});
+    var pool = new THREE.Mesh(new THREE.CircleGeometry(0.5, 24), poolMat);
+    pool.rotation.x = -Math.PI/2;
+    pool.position.set(fx, baseY+0.02, fz+0.12);
+    scene.add(pool);
+
+    var mc = document.createElement('canvas'); mc.width = mc.height = 64;
+    var mg = mc.getContext('2d');
+    var mgrad = mg.createRadialGradient(32,32,0,32,32,32);
+    mgrad.addColorStop(0,'rgba(255,255,255,0.55)');
+    mgrad.addColorStop(1,'rgba(255,255,255,0)');
+    mg.fillStyle = mgrad; mg.fillRect(0,0,64,64);
+    var mist = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(mc), transparent:true, depthWrite:false, opacity:0.85}));
+    mist.scale.set(1.15, 0.75, 1);
+    mist.position.set(fx, baseY+0.16, fz+0.14);
+    scene.add(mist);
+  })();
+
+  var center = new THREE.Vector3(0, 1.5, 0);
+  var angle = 0;
+  var clock = new THREE.Clock();
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rotateSpeed = prefersReduced ? 0.03 : 0.12;
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!container.clientWidth || !container.clientHeight) return;
+    if(camera.aspect === 0 || !isFinite(camera.aspect)) fit();
+    var dt = Math.min(clock.getDelta(), 0.05);
+    angle += dt*rotateSpeed;
+
+    var radius = 22;
+    camera.position.set(Math.sin(angle)*radius, 10.5 + Math.sin(angle*0.6)*1.2, Math.cos(angle)*radius);
+    camera.lookAt(center);
+
+    var t = (performance.now()/1000 % 14) / 14;
+    var tc = Math.min(t,0.999);
+    var p = fullCurve.getPointAt(tc);
+    var ahead = fullCurve.getPointAt(Math.min(tc+0.004,0.999));
+    car.position.set(p.x, p.y+0.19, p.z);
+    car.lookAt(ahead.x, p.y+0.19, ahead.z);
+
+    var pulse = 1 + Math.sin(performance.now()/1000*2)*0.15;
+    markers.forEach(function(m){ m.glow.scale.setScalar(pulse); });
+    waterfallUpdaters.forEach(function(fn){ fn(dt); });
+    clouds.forEach(function(c){
+      c.spr.position.x += dt*c.speed;
+      if(c.spr.position.x > 15) c.spr.position.x = -15;
+    });
+
+    renderer.render(scene, camera);
+
+    // project badges + name labels, then resolve screen-space overlaps —
+    // several stops sit genuinely close together in real life (Aspen /
+    // Independence Pass / Twin Lakes / Leadville), so a fixed offset isn't
+    // enough; push colliding labels apart based on their actual on-screen
+    // distance each frame instead.
+    var proj = STOPS.map(function(s, i){
+      var v = s.pos.clone().project(camera);
+      var vis = !(v.z > 1 || v.z < -1);
+      var x = (v.x*0.5+0.5) * container.clientWidth;
+      var y = (-v.y*0.5+0.5) * container.clientHeight;
+      return {i:i, x:x, y:y, vis:vis, bx:x, by:y, ny:y+13};
+    });
+    var visible = proj.filter(function(p){ return p.vis; });
+    var badgeSep = 26;
+    for(var k=0;k<visible.length;k++){
+      var cur = visible[k];
+      for(var j=0;j<k;j++){
+        var prev = visible[j];
+        if(Math.abs(cur.bx-prev.bx) < badgeSep*1.4 && Math.abs(cur.by-prev.by) < badgeSep){
+          cur.bx = prev.bx + badgeSep*1.4;
+        }
+      }
+    }
+    // name-label collision runs only among the curated "major stop" labels
+    // (see MAJOR_STOPS) so a label always stays visually anchored to its
+    // own badge instead of drifting into an unrelated vertical stack
+    var majors = proj.filter(function(p){ return p.vis && nameEls[p.i]; });
+    majors.sort(function(a,b){ return a.x - b.x; });
+    var nameSep = 15;
+    for(var mk=0; mk<majors.length; mk++){
+      var mcur = majors[mk];
+      for(var mj=0; mj<mk; mj++){
+        var mprev = majors[mj];
+        if(Math.abs(mcur.x-mprev.x) < 90 && Math.abs(mcur.ny-mprev.ny) < nameSep){
+          mcur.ny = mprev.ny + nameSep;
+        }
+      }
+    }
+    proj.forEach(function(p){
+      var el = badgeEls[p.i], nameEl = nameEls[p.i];
+      if(!p.vis){ el.style.opacity = '0'; if(nameEl) nameEl.style.opacity = '0'; return; }
+      el.style.opacity = '1';
+      el.style.left = p.bx + 'px';
+      el.style.top = p.by + 'px';
+      if(nameEl){
+        nameEl.style.opacity = '1';
+        nameEl.style.left = p.x + 'px';
+        nameEl.style.top = p.ny + 'px';
+      }
+    });
+  }
+
+  try{
+    animate();
+  }catch(e){
+    showFallback();
+  }
+})();
+</script>
+</body>
+</html>
